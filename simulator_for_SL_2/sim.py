@@ -21,6 +21,16 @@ USE_CHECKPOINT=True
 GOAL_DISTANCE_THRESHOLD=6
 FILE_NUM=7
 
+# MAPS=["warehouse_map_1","warehouse_map_2"]
+# SUBGOALS=[AGENT_SUBGOALS_W_1,AGENT_SUBGOALS_W_2]
+# APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_1]
+#
+# APF_DATA_ITER=150
+# APF_DATA_NO_ROTATE_KEEP=0.4
+# USE_CHECKPOINT=True
+# GOAL_DISTANCE_THRESHOLD=6
+# FILE_NUM="W_1"
+
 obstacles=[]
 mapBackgrounds=[]
 for map in MAPS:
@@ -30,22 +40,22 @@ for map in MAPS:
 env=Environment()
 env.reset(obstacles=obstacles[0],agentRadius=AGENT_RADIUS,agentSubGoals=SUBGOALS[0])
 pygame.init()
-pygame.display.set_caption(f"DAgger")
+pygame.display.set_caption(f"Map")
 screen=pygame.display.set_mode((mapBackgrounds[0].image.get_width(),mapBackgrounds[0].image.get_height()))
 screen.blit(mapBackgrounds[0].image, mapBackgrounds[0].rect)
 env.renderSubGoals(screen)
 pygame.display.update()
-# time.sleep(2)
+time.sleep(2)
 
-# for j in range(len(MAPS)):
-#     env=Environment()
-#     env.reset(obstacles=obstacles[j],agentRadius=AGENT_RADIUS,agentSubGoals=SUBGOALS[j])
-#     pygame.display.set_caption(f"Map {j}")
-#     screen=pygame.display.set_mode((mapBackgrounds[j].image.get_width(),mapBackgrounds[j].image.get_height()))
-#     screen.blit(mapBackgrounds[j].image, mapBackgrounds[j].rect)
-#     env.renderSubGoals(screen)
-#     pygame.display.update()
-#     time.sleep(7)
+for j in range(len(MAPS)):
+    env=Environment()
+    env.reset(obstacles=obstacles[j],agentRadius=AGENT_RADIUS,agentSubGoals=SUBGOALS[j])
+    pygame.display.set_caption(f"Scenario {j}")
+    screen=pygame.display.set_mode((mapBackgrounds[j].image.get_width(),mapBackgrounds[j].image.get_height()))
+    screen.blit(mapBackgrounds[j].image, mapBackgrounds[j].rect)
+    env.renderSubGoals(screen)
+    pygame.display.update()
+    time.sleep(2)
 
 pathNumTimestamps=[[] for _ in range(len(MAPS))]
 pathClearances=[[] for _ in range(len(MAPS))]
@@ -55,7 +65,7 @@ keepIterating=True
 policy=Policy()
 curFile=f"WorkingCheckpoints/iter_checkpoint_{FILE_NUM}_{APF_DATA_ITER}_{APF_DATA_NO_ROTATE_KEEP}_8.pth"
 policy.loadModel(curFile)
-NUM_ITERATIONS=5
+NUM_ITERATIONS=1
 for i in range(1,1+NUM_ITERATIONS): 
     print(f"\n***Iteration {i}***")
     allMapsPassed=True
@@ -65,12 +75,12 @@ for i in range(1,1+NUM_ITERATIONS):
         print(f"\n*Map {j}*")
         env=Environment()
         env.reset(obstacles=obstacles[j],agentRadius=AGENT_RADIUS,agentSubGoals=SUBGOALS[j])
-        pygame.display.set_caption(f"DAgger: Iteration {i} Map {j}")
+        pygame.display.set_caption(f"APF: Iteration {i} Map {j}")
         screen=pygame.display.set_mode((mapBackgrounds[j].image.get_width(),mapBackgrounds[j].image.get_height()))
         screen.blit(mapBackgrounds[j].image, mapBackgrounds[j].rect)
         running=True
         lastProgress=0
-        isApfOn=1
+        isApfOn=0
         robotColor=(255,0,0)
         collisionFlag=False
         numTimestamps=0
@@ -104,7 +114,7 @@ for i in range(1,1+NUM_ITERATIONS):
                 env.agentStates[0].distanceGoal,
                 env.agentStates[0].thetaGoal,
                 ]+env.agentStates[0].lidarData[1]
-            reward=env.executeAction(action,noise=0.5,goalDistanceThreshold=GOAL_DISTANCE_THRESHOLD)
+            reward=env.executeAction(action,noise=0.2,goalDistanceThreshold=GOAL_DISTANCE_THRESHOLD)
             env.render(screen,robotColor)
             pygame.display.update()
 
@@ -125,7 +135,7 @@ for i in range(1,1+NUM_ITERATIONS):
                     running=False
                     break
             
-            if(numTimestamps>400):
+            if(numTimestamps>600):
                 print("Time Limit Exceeded")
                 collisionFlag=True
                 break  

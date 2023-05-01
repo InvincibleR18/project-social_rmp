@@ -9,15 +9,19 @@ import time
 
 start_time=time.time()
 
-MAPS=["small_map","small_map2","map2","map3","map4","squares_map"]
-SUBGOALS=[AGENT_SUBGOALS2,AGENT_SUBGOALS3,AGENT_SUBGOALS4,AGENT_SUBGOALS5,AGENT_SUBGOALS6,AGENT_SUBGOALS7]
-APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_2,APF_PARAMS_1,APF_PARAMS_1,APF_PARAMS_3,APF_PARAMS_4]
+# MAPS=["small_map","small_map2","map2","map3","map4","squares_map"]
+# SUBGOALS=[AGENT_SUBGOALS2,AGENT_SUBGOALS3,AGENT_SUBGOALS4,AGENT_SUBGOALS5,AGENT_SUBGOALS6,AGENT_SUBGOALS7]
+# APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_2,APF_PARAMS_1,APF_PARAMS_1,APF_PARAMS_3,APF_PARAMS_4]
+
+MAPS=["warehouse_map_1","warehouse_map_2"]
+SUBGOALS=[AGENT_SUBGOALS_W_1,AGENT_SUBGOALS_W_2]
+APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_1]
 
 NUM_ITERATIONS=150
 NO_ROTATE_KEEP=0.4
 APF_DATA_NOISE=0.4
 GOAL_DISTANCE_THRESHOLD=6
-FILE_NUM=7
+FILE_NUM="W1"
 
 obstacles=[]
 mapBackgrounds=[]
@@ -28,9 +32,9 @@ for map in MAPS:
 filename = f"Datasets/apf_data_{FILE_NUM}_{NUM_ITERATIONS}_{NO_ROTATE_KEEP}.csv"
 fields=["output_linear_velocity","output_angular_velocity","distance_from_goal","angle_from_goal"]
 fields+=[f"lidar_depth_{i}" for i in range(1,1+NUMBER_OF_LIDAR_ANGLES)]
-# with open(filename,'w') as csvfile: 
-#     csvwriter = csv.writer(csvfile) 
-#     csvwriter.writerow(fields)
+with open(filename,'w') as csvfile: 
+    csvwriter = csv.writer(csvfile) 
+    csvwriter.writerow(fields)
 rows=[] 
 
 for i in range(1,1+NUM_ITERATIONS):
@@ -60,8 +64,15 @@ for i in range(1,1+NUM_ITERATIONS):
             else:
                 rows.append(row)
 
-            if env.getAgentClearances()[0]==-1 or env.getAgentClearances()[0]<=3.5:
+            # if env.getAgentClearances()[0]==-1 or env.getAgentClearances()[0]<=3.5:
+            #     for _ in range(4):
+            #         rows.append(row)
+
+            if env.getAgentClearances()[0]==-1 or env.getAgentClearances()[0]<=1.5:
                 for _ in range(4):
+                    rows.append(row)
+            elif env.getAgentClearances()[0]<=3:
+                for _ in range(2):
                     rows.append(row)
 
             if(env.getAgentClearances()[0]==-1):
@@ -94,7 +105,7 @@ for i in range(1,1+NUM_ITERATIONS):
                     running=False
                     break
             
-            if ctr>400:
+            if ctr>800:
                 print("Time Limit Exceeded!!!")
                 inp=input("Show Map? Enter Y/N: ")
                 if(inp=="Y"):

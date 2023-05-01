@@ -10,15 +10,19 @@ import matplotlib.pyplot as plt
 
 start_time=time.time()
 
-MAPS=["small_map","small_map2","map2","map3","map4","squares_map"]
-SUBGOALS=[AGENT_SUBGOALS2,AGENT_SUBGOALS3,AGENT_SUBGOALS4,AGENT_SUBGOALS5,AGENT_SUBGOALS6,AGENT_SUBGOALS7]
-APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_2,APF_PARAMS_1,APF_PARAMS_1,APF_PARAMS_3,APF_PARAMS_4]
+# MAPS=["small_map","small_map2","map2","map3","map4","squares_map"]
+# SUBGOALS=[AGENT_SUBGOALS2,AGENT_SUBGOALS3,AGENT_SUBGOALS4,AGENT_SUBGOALS5,AGENT_SUBGOALS6,AGENT_SUBGOALS7]
+# APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_2,APF_PARAMS_1,APF_PARAMS_1,APF_PARAMS_3,APF_PARAMS_4]
+
+MAPS=["warehouse_map_1","warehouse_map_2"]
+SUBGOALS=[AGENT_SUBGOALS_W_1,AGENT_SUBGOALS_W_2]
+APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_1]
 
 APF_DATA_ITER=150
 APF_DATA_NO_ROTATE_KEEP=0.4
-USE_CHECKPOINT=True
+USE_CHECKPOINT=False
 GOAL_DISTANCE_THRESHOLD=6
-FILE_NUM=7
+FILE_NUM="W1"
 
 obstacles=[]
 mapBackgrounds=[]
@@ -54,7 +58,7 @@ pathAvgGoalDistances=[[] for _ in range(len(MAPS))]
 ctrAllPassed=0
 keepIterating=True
 policy=Policy()
-NUM_ITERATIONS=40
+NUM_ITERATIONS=10
 for i in range(1,1+NUM_ITERATIONS):
     allMapsPassed=True
     mapsPassed=[] 
