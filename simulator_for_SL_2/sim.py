@@ -10,16 +10,20 @@ import matplotlib.pyplot as plt
 
 start_time=time.time()
 
-MAPS=["small_map","small_map2","map2","map3","map4","squares_map"]
-SUBGOALS=[AGENT_SUBGOALS2,AGENT_SUBGOALS3,AGENT_SUBGOALS4,AGENT_SUBGOALS5,AGENT_SUBGOALS6,AGENT_SUBGOALS7]
-APF_PARAMS=[APF_PARAMS_S,APF_PARAMS_S,APF_PARAMS_S,APF_PARAMS_S,APF_PARAMS_S,APF_PARAMS_S]
+# MAPS=["small_map","small_map2","map2","map3","map4","squares_map"]
+# SUBGOALS=[AGENT_SUBGOALS2,AGENT_SUBGOALS3,AGENT_SUBGOALS4,AGENT_SUBGOALS5,AGENT_SUBGOALS6,AGENT_SUBGOALS7]
+# APF_PARAMS=[APF_PARAMS_S,APF_PARAMS_S,APF_PARAMS_S,APF_PARAMS_S,APF_PARAMS_S,APF_PARAMS_S]
 # APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_2,APF_PARAMS_1,APF_PARAMS_1,APF_PARAMS_3,APF_PARAMS_4]
+
+MAPS=["warehouse_map_1","warehouse_map_2"]
+SUBGOALS=[AGENT_SUBGOALS_W_1,AGENT_SUBGOALS_W_2]
+APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_1]
 
 APF_DATA_ITER=150
 APF_DATA_NO_ROTATE_KEEP=0.4
 USE_CHECKPOINT=True
 GOAL_DISTANCE_THRESHOLD=6
-FILE_NUM=7
+FILE_NUM="W1"
 
 # MAPS=["warehouse_map_1","warehouse_map_2"]
 # SUBGOALS=[AGENT_SUBGOALS_W_1,AGENT_SUBGOALS_W_2]
@@ -63,7 +67,7 @@ pathAvgGoalDistances=[[] for _ in range(len(MAPS))]
 
 keepIterating=True
 policy=Policy()
-curFile=f"WorkingCheckpoints/iter_checkpoint_{FILE_NUM}_{APF_DATA_ITER}_{APF_DATA_NO_ROTATE_KEEP}_8.pth"
+curFile=f"WorkingCheckpoints/iter_checkpoint_{FILE_NUM}_{APF_DATA_ITER}_{APF_DATA_NO_ROTATE_KEEP}.pth"
 policy.loadModel(curFile)
 NUM_ITERATIONS=1
 for i in range(1,1+NUM_ITERATIONS): 
@@ -206,19 +210,19 @@ for j in range(len(MAPS)):
     avgPathClearance[j]=sumPathClearance[j]/successCtr
     avgPathAvgGoalDistances[j]=sumPathAvgGoalDistances[j]/successCtr
 
-print(minNumTimestamps)
-print(maxNumTimestamps)
-print(sumNumTimestamps)
+# print(minNumTimestamps)
+# print(maxNumTimestamps)
+# print(sumNumTimestamps)
 print(avgNumTimestamps)
 print()
-print(minPathClearance)
-print(maxPathClearance)
+# print(minPathClearance)
+# print(maxPathClearance)
 print(avgPathClearance)
 print()
-print(minPathAvgGoalDistances)
-print(maxPathAvgGoalDistances)
+# print(minPathAvgGoalDistances)
+# print(maxPathAvgGoalDistances)
 print(avgPathAvgGoalDistances)
 print()
-print(successCtr)
+print(successCtr/NUM_ITERATIONS)
 
 print("Execution Time:",(time.time()-start_time)/60,"mins")

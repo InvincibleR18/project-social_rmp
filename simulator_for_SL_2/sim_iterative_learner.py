@@ -20,7 +20,7 @@ APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_1]
 
 APF_DATA_ITER=150
 APF_DATA_NO_ROTATE_KEEP=0.4
-USE_CHECKPOINT=False
+USE_CHECKPOINT=True
 GOAL_DISTANCE_THRESHOLD=6
 FILE_NUM="W1"
 
@@ -58,7 +58,7 @@ pathAvgGoalDistances=[[] for _ in range(len(MAPS))]
 ctrAllPassed=0
 keepIterating=True
 policy=Policy()
-NUM_ITERATIONS=10
+NUM_ITERATIONS=1
 for i in range(1,1+NUM_ITERATIONS):
     allMapsPassed=True
     mapsPassed=[] 
@@ -68,11 +68,14 @@ for i in range(1,1+NUM_ITERATIONS):
             policy.loadModel(checkpointFilename)
         else:
             policy.learnAndSaveModel(tempDataFilename,tempCheckpointFilename)
+            policy.loadModel(tempCheckpointFilename)
     else:
         if i==1:
             policy.learnAndSaveModel(apfDataFilename,checkpointFilename)
+            policy.loadModel(checkpointFilename)
         else:
             policy.learnAndSaveModel(tempDataFilename,tempCheckpointFilename)
+            policy.loadModel(tempCheckpointFilename)
             
 
     rows=[]
@@ -189,7 +192,7 @@ for i in range(1,1+NUM_ITERATIONS):
 
     if allMapsPassed:
         ctrAllPassed+=1
-        curFile="WorkingCheckpoints/iter_checkpoint_{FILE_NUM}_{APF_DATA_ITER}_{APF_DATA_NO_ROTATE_KEEP}_V_{ctrAllPassed}.pth"
+        curFile=f"WorkingCheckpoints/iter_checkpoint_{FILE_NUM}_{APF_DATA_ITER}_{APF_DATA_NO_ROTATE_KEEP}.pth"
         policy.saveModel(curFile)
 
     print("Execution Time since start:",(time.time()-start_time),"s")
