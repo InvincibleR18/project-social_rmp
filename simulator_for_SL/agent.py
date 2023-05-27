@@ -20,9 +20,9 @@ class AgentState:
         self.velocity=velocity
 
     # action --> (linearVelocity,angularVelocity)
-    def selectAction(self,algorithm="APF",policy=None):
+    def selectAction(self,algorithm="APF",policy=None,apfParams=APF_PARAMS_1):
         if algorithm=="APF":
-            bestAction=APF(self.distanceGoal,self.thetaGoal,self.lidarData,self.velocity)
+            bestAction=APF(self.distanceGoal,self.thetaGoal,self.lidarData,self.velocity,apfParams)
         elif algorithm=="NN":
             _,lidarDepths=self.lidarData
             bestAction=policy.act(lidarDepths,[self.distanceGoal,self.thetaGoal])

@@ -16,22 +16,56 @@ AGENT_SUBGOALS3=[[(121, 148, 0), (123, 280, 0)]]
 AGENT_SUBGOALS4=[[(619, 187, 0), (416, 250, 0), (403, 83, 0)]]
 # For map3.png
 AGENT_SUBGOALS5=[[(564, 227, 0), (405, 227, 0), (406, 91, 0)], [(407, 119, 0), (436, 239, 0), (591, 188, 0)]]
+# For map4.png
+AGENT_SUBGOALS6=[[(163, 562, 0), (61, 468, 0)], [(68, 463, 0), (167, 554, 0)]]
+# For squares_map.png
+AGENT_SUBGOALS7=[[(400, 391, 0), (397, 222, 0)]]
+
+#For warehouse scenarios
+AGENT_SUBGOALS_W_1=[[(63, 545, 0), (173, 443, 0), (297, 302, 0)], [(235, 255, 0), (291, 422, 0), (54, 513, 0)]]
+AGENT_SUBGOALS_W_2=[[(283, 555, 0), (398, 443, 0), (736, 546, 0)], [(740, 552, 0), (522, 445, 0), (302, 558, 0)], [(536, 272, 0), (529, 562, 0)]]
+
+
 FIELD_OF_VIEW=radians(180)
 NUMBER_OF_LIDAR_ANGLES=50
 MAX_LIDAR_DISTANCE=1e9
 VMAX=2
 WMAX=radians(20)
 
-class APF_PARAMS1:
+class APF_PARAMS_1:
     kAttr=50
     distanceThresholdAttraction=1
     kRep=1e5
     sigma=2
     kParam=0.5
 
-class APF_PARAMS2:
+# For small_map2
+class APF_PARAMS_2:
     kAttr=1000
     distanceThresholdAttraction=1
     kRep=1e5
     sigma=7
+    kParam=0.5
+
+# For map4
+class APF_PARAMS_3:
+    kAttr=50
+    distanceThresholdAttraction=1
+    kRep=1e5
+    sigma=3
+    kParam=0.5
+
+# For squares_map
+class APF_PARAMS_4:
+    kAttr=1000
+    distanceThresholdAttraction=1
+    kRep=1e5
+    sigma=1
+    kParam=0.5
+
+class APF_PARAMS_S:
+    kAttr=500
+    distanceThresholdAttraction=1
+    kRep=1e5
+    sigma=4
     kParam=0.5

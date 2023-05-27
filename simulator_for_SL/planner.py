@@ -1,14 +1,12 @@
 from util import *
 from config import *
 
-APF_PARAMS=APF_PARAMS1
-
-def APF(distanceGoal,thetaGoal,lidarData,oldV,vmax=VMAX,wmax=WMAX):
+def APF(distanceGoal,thetaGoal,lidarData,oldV,apfParams,vmax=VMAX,wmax=WMAX):
     lidarAngles,lidarDepths=lidarData
     
     # Attraction Modelling
-    kAttr=APF_PARAMS.kAttr
-    distanceThresholdAttraction=APF_PARAMS.distanceThresholdAttraction
+    kAttr=apfParams.kAttr
+    distanceThresholdAttraction=apfParams.distanceThresholdAttraction
 
     if distanceGoal<=distanceThresholdAttraction:
         fAttr=(kAttr*(distanceGoal),thetaGoal)
@@ -16,8 +14,8 @@ def APF(distanceGoal,thetaGoal,lidarData,oldV,vmax=VMAX,wmax=WMAX):
         fAttr=(distanceThresholdAttraction*kAttr,thetaGoal)
 
     # Repulsion Modelling
-    kRep=APF_PARAMS.kRep
-    sigma=APF_PARAMS.sigma
+    kRep=apfParams.kRep
+    sigma=apfParams.sigma
 
     fRep=(0,0)
     for i in range(len(lidarAngles)):
@@ -29,7 +27,7 @@ def APF(distanceGoal,thetaGoal,lidarData,oldV,vmax=VMAX,wmax=WMAX):
 
     # Converting resultant force to (linear velocity,angular velocity) for non-holonomic robot
     fRes=addForces(fAttr,fRep)
-    kParam=APF_PARAMS.kParam
+    kParam=apfParams.kParam
     w=normalAngle(kParam*(fRes[1]))
     if abs(w)>wmax:
         w=wmax*(w/abs(w))
