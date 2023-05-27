@@ -102,7 +102,7 @@ class MyTrainer:
         
             print("-> Training time: {:.4f}s, loss = {:.4f} ".format(epochTime, epochLoss)) 
         self.saveCheckpoint(checkpointFilename)
-        self.saveLearningCurves(train_loss)
+        # self.saveLearningCurves(train_loss)
     
     def saveCheckpoint(self,checkpointFilename):
         checkpoint=self.model.state_dict()
