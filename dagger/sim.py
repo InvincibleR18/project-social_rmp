@@ -19,16 +19,15 @@ MAPS=["warehouse_map_1","warehouse_map_2"]
 SUBGOALS=[AGENT_SUBGOALS_W_1,AGENT_SUBGOALS_W_2]
 APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_1]
 
+# MAPS=["intersection_1"]
+# SUBGOALS=[AGENT_SUBGOALS_I_1]
+# APF_PARAMS=[APF_PARAMS_5]
+
 APF_DATA_ITER=150
 APF_DATA_NO_ROTATE_KEEP=0.4
-USE_CHECKPOINT=True
 GOAL_DISTANCE_THRESHOLD=6
 FILE_NUM="W1"
 
-# MAPS=["warehouse_map_1","warehouse_map_2"]
-# SUBGOALS=[AGENT_SUBGOALS_W_1,AGENT_SUBGOALS_W_2]
-# APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_1]
-#
 # APF_DATA_ITER=150
 # APF_DATA_NO_ROTATE_KEEP=0.4
 # USE_CHECKPOINT=True
@@ -121,6 +120,7 @@ for i in range(1,1+NUM_ITERATIONS):
             reward=env.executeAction(action,noise=0.2,goalDistanceThreshold=GOAL_DISTANCE_THRESHOLD)
             env.render(screen,robotColor)
             pygame.display.update()
+            # time.sleep(0.05)
 
             numTimestamps+=1
             pathClearance=min(pathClearance,env.getAgentClearances()[0])

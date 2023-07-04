@@ -6,3 +6,8 @@ class Colors:
     black=(0,0,0)
     white=(255,255,255)
     cyan=(0,255,255)
+    dark_green=(0,128,0)
+    maroon=(128,0,0)
+    dark_blue=(0,0,128)
+    yellow_grey=(128,128,0)
+    blue_grey=(0,128,128)

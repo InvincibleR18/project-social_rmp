@@ -25,6 +25,10 @@ AGENT_SUBGOALS7=[[(400, 391, 0), (397, 222, 0)]]
 AGENT_SUBGOALS_W_1=[[(63, 545, 0), (173, 443, 0), (297, 302, 0)], [(235, 255, 0), (291, 422, 0), (54, 513, 0)]]
 AGENT_SUBGOALS_W_2=[[(283, 555, 0), (398, 443, 0), (736, 546, 0)], [(740, 552, 0), (522, 445, 0), (302, 558, 0)], [(536, 272, 0), (529, 562, 0)]]
 
+# For intersection_1.png
+AGENT_SUBGOALS_I_1=[[(27, 291, 0), (237, 289, 0), (460, 278, 0), (714, 278, 0)], [(323, 541, 0), (329, 386, 0), (331, 215, 0), (330, 45, 0)], [(379, 67, 0), (374, 192, 0), (182, 324, 0), (53, 315, 0)], [(663, 313, 0), (476, 319, 0), (375, 228, 0), (370, 34, 0)]]
+
+
 
 FIELD_OF_VIEW=radians(180)
 NUMBER_OF_LIDAR_ANGLES=50
@@ -61,6 +65,14 @@ class APF_PARAMS_4:
     distanceThresholdAttraction=1
     kRep=1e5
     sigma=1
+    kParam=0.5
+
+# For intersection_1
+class APF_PARAMS_5:
+    kAttr=50
+    distanceThresholdAttraction=1
+    kRep=1e5
+    sigma=2
     kParam=0.5
 
 class APF_PARAMS_S:

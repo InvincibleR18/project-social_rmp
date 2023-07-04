@@ -5,7 +5,7 @@ screen=pygame.display.set_mode((800,600))
 screen.fill((255,255,255))
 pygame.display.update()
 
-MAP_NAME="warehouse_map_1"
+MAP_NAME="intersection_1"
 
 running=True
 obstacles=[]

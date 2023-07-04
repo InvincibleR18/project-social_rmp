@@ -17,11 +17,15 @@ MAPS=["warehouse_map_1","warehouse_map_2"]
 SUBGOALS=[AGENT_SUBGOALS_W_1,AGENT_SUBGOALS_W_2]
 APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_1]
 
-NUM_ITERATIONS=150
+# MAPS=["intersection_1"]
+# SUBGOALS=[AGENT_SUBGOALS_I_1]
+# APF_PARAMS=[APF_PARAMS_5]
+
+NUM_ITERATIONS=50
 NO_ROTATE_KEEP=0.4
-APF_DATA_NOISE=0.4
+APF_DATA_NOISE=0.2
 GOAL_DISTANCE_THRESHOLD=6
-FILE_NUM="W1"
+FILE_NUM="I1"
 
 obstacles=[]
 mapBackgrounds=[]
@@ -55,7 +59,7 @@ for i in range(1,1+NUM_ITERATIONS):
                 env.agentStates[0].distanceGoal,
                 env.agentStates[0].thetaGoal,
                 ]+env.agentStates[0].lidarData[1]
-            reward=env.executeAction(action,noise=APF_DATA_NOISE)
+            reward=env.executeAction(action,noise=APF_DATA_NOISE,goalDistanceThreshold=GOAL_DISTANCE_THRESHOLD)
 
             if(abs(row[1])<abs(radians(1))):
                 epsilon=random.uniform(0,1)
