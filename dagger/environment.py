@@ -25,7 +25,7 @@ class Environment:
         self.updateAgentStates()
     
     def render(self,screen,robotColor=(255,0,0)):
-        agentColors=[Colors.red,Colors.blue,Colors.cyan,Colors.yellow,Colors.green]
+        agentColors=[Colors.red,Colors.maroon,Colors.dark_blue,Colors.dark_green,Colors.blue_grey]
         for i in range(len(self.agentPoses)):
             agentCoordinates=(int(self.agentPoses[i][0]),int(self.agentPoses[i][1]))
             goalCoordinates=(int(self.agentGoals[i][0]),int(self.agentGoals[i][1]))
@@ -44,7 +44,7 @@ class Environment:
                 pygame.draw.line(screen,rayColors[1],robotCoordinates,lidarHitpoint)    
 
     def renderSubGoals(self,screen):
-        agentColors=[Colors.red,Colors.blue,Colors.cyan,Colors.yellow,Colors.green]
+        agentColors=[Colors.red,Colors.maroon,Colors.dark_blue,Colors.dark_green,Colors.blue_grey]
         for i in range(len(self.agentSubGoals)):
             for j in range(len(self.agentSubGoals[i])):
                 subGoalCoordinate=(int(self.agentSubGoals[i][j][0]),int(self.agentSubGoals[i][j][1]))

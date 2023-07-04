@@ -18,6 +18,10 @@ MAPS=["warehouse_map_1","warehouse_map_2"]
 SUBGOALS=[AGENT_SUBGOALS_W_1,AGENT_SUBGOALS_W_2]
 APF_PARAMS=[APF_PARAMS_1,APF_PARAMS_1]
 
+# MAPS=["intersection_1"]
+# SUBGOALS=[AGENT_SUBGOALS_I_1]
+# APF_PARAMS=[APF_PARAMS_5]
+
 APF_DATA_ITER=150
 APF_DATA_NO_ROTATE_KEEP=0.4
 USE_CHECKPOINT=True
@@ -58,7 +62,7 @@ pathAvgGoalDistances=[[] for _ in range(len(MAPS))]
 ctrAllPassed=0
 keepIterating=True
 policy=Policy()
-NUM_ITERATIONS=1
+NUM_ITERATIONS=15
 for i in range(1,1+NUM_ITERATIONS):
     allMapsPassed=True
     mapsPassed=[] 
@@ -122,7 +126,7 @@ for i in range(1,1+NUM_ITERATIONS):
                 env.agentStates[0].distanceGoal,
                 env.agentStates[0].thetaGoal,
                 ]+env.agentStates[0].lidarData[1]
-            reward=env.executeAction(action,noise=0.1,goalDistanceThreshold=GOAL_DISTANCE_THRESHOLD)
+            reward=env.executeAction(action,noise=0.4,goalDistanceThreshold=GOAL_DISTANCE_THRESHOLD)
             env.render(screen,robotColor)
             pygame.display.update()
 

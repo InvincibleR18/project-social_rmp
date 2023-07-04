@@ -3,7 +3,7 @@ from colors import *
 
 pygame.init()
 
-mapBackground=getMapBackground(mapImageFilename="Maps/warehouse_map_1.png")
+mapBackground=getMapBackground(mapImageFilename="Maps/intersection_1.png")
 screen=pygame.display.set_mode((mapBackground.image.get_width(),mapBackground.image.get_height()))
 screen.blit(mapBackground.image, mapBackground.rect)
 pygame.display.update()
@@ -11,7 +11,7 @@ pygame.display.update()
 running=True
 allAgentSubGoals=[]
 curAgentSubGoal=[]
-agentColors=[Colors.red,Colors.blue,Colors.cyan,Colors.yellow,Colors.green]
+agentColors=[Colors.red,Colors.maroon,Colors.dark_blue,Colors.dark_green,Colors.blue_grey]
 
 while running:
     for event in pygame.event.get():
